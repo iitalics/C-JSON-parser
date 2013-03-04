@@ -417,7 +417,7 @@ static struct json_value* json_parse_value (const char** str_ref, struct json_al
 		
 		
 		if (negative)
-			n = -n;
+			n = -n;		// blaze it faggot
 		
 		struct json__value_number* value = json__malloc(sizeof(struct json__value_number));
 		value->base.type = JSON_TYPE_NUMBER;
@@ -568,7 +568,7 @@ struct json_value* json_get (struct json_value* v, const char* keyname)
 	if (v->type == JSON_TYPE_LIST)
 		return json_get_index(v, atoi(keyname));
 	else if (v->type != JSON_TYPE_TABLE)
-		return &v->alloc->invalidvalue;		// blaze it faggot
+		return &v->alloc->invalidvalue;	
 	
 	
 	struct json__value_table* table = (struct json__value_table*)v;
