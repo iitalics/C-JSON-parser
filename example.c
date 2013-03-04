@@ -17,7 +17,14 @@ int main (int argc, char** argv)
 		return EXIT_SUCCESS;
 	}
 	
+	
 	FILE* fs = fopen(argv[1], "r");
+	
+	if (!fs)
+	{
+		fprintf(stderr, "Could not open file '%s'.\n", argv[1]);
+		return EXIT_FAILURE;
+	}
 	
 	struct json_value* root = json_parse_file(fs);
 	struct json_value* entry;
@@ -32,9 +39,9 @@ int main (int argc, char** argv)
 		return EXIT_FAILURE;
 	}
 	
-	int i, len;
+	int i, len = json_length(root, NULL);
 	
-	for (i = 0, len = json_length(root, NULL); i < len; i++)
+	for (i = 0; i < len; i++)
 	{
 		entry = json_get_index(root, i);
 		
@@ -48,7 +55,7 @@ int main (int argc, char** argv)
 			json_get_int(json_get(entry, "age"), NULL));
 	}
 	
-	json_free(root);
 	
+	json_free(root);
 	return EXIT_SUCCESS;
 }
